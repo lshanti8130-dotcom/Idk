@@ -1,58 +1,58 @@
-name: CI - Cloudflare (SimpleRDP = ADMIN)
+name: CI - Cloudflare RDP (SimpleRDP = ADMIN)
 on: 
-  push:
-  workflow_dispatch:
+  push:
+  workflow_dispatch:
 permissions:
-  contents: write
+  contents: write
 jobs:
-  build:
-    runs-on: windows-latest
-    steps:
-    - name: SimpleRDP → FULL ADMIN + RDP
-      shell: cmd
-      run: |
-        
-        
-        REM Create SimpleRDP user
-        net user SimpleRDP Password123! /add
-        net localgroup "Remote Desktop Users" SimpleRDP /add
-        
-        REM **GIVE SimpleRDP FULL ADMIN** (UAC bypass)
-        net localgroup Administrators SimpleRDP /add
-        
-        REM RDP + Firewall
-        reg add "HKLM\System\CurrentControlSet\Control\Terminal Server" /v fDenyTSConnections /t REG_DWORD /d 0 /f
-        netsh advfirewall firewall set rule group="Remote Desktop" new enable=Yes
-        netsh advfirewall firewall add rule name="RDP TCP" dir=in action=allow protocol=TCP localport=3389
-        
-        echo "✅ SimpleRDP = FULL ADMINISTRATOR!"
-        echo "✅ Can install ANY app - NO UAC!"
+  build:
+    runs-on: windows-latest
+    steps:
+    - name: SimpleRDP → FULL ADMIN + RDP
+      shell: cmd
+      run: |
+        echo "=== SimpleRDP → ADMINISTRATOR RIGHTS ==="
+        
+        REM Create SimpleRDP user
+        net user SimpleRDP Password123! /add
+        net localgroup "Remote Desktop Users" SimpleRDP /add
+        
+        REM GIVE SimpleRDP FULL ADMIN (UAC bypass)
+        net localgroup Administrators SimpleRDP /add
+        
+        REM RDP + Firewall
+        reg add "HKLM\System\CurrentControlSet\Control\Terminal Server" /v fDenyTSConnections /t REG_DWORD /d 0 /f
+        netsh advfirewall firewall set rule group="Remote Desktop" new enable=Yes
+        netsh advfirewall firewall add rule name="RDP TCP" dir=in action=allow protocol=TCP localport=3389
+        
+        echo "✅ SimpleRDP = FULL ADMINISTRATOR!"
+        echo "✅ Can install ANY app - NO UAC!"
 
-    - name: Cloudflare Tunnel (SIMPLE - Auto Runs)
-      shell: cmd
-      run: |
-        echo "=== Cloudflare Tunnel ==="
-        curl -L https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-windows-amd64.exe -o cloudflared.exe
-        
-        REM Install service ONLY (auto-starts - NO net start)
-        cloudflared.exe service install eyJhIjoiZjhkNzdkY2U2ZmNjM2MyNDE3OTI5MTJiYzk4OWY3ZjYiLCJ0IjoiZDU1YzcxMmUtNjZhZi00OTNjLTg3ZGUtNjNiOGQ1YjNlN2Y2IiwicyI6IlpEY3pNV1ZoWWpNdE16aGhZUzAwT0dRM0xUazBObUV0WkdJd01EWTFNakk0WWpOaCJ9
-        REM Service auto-runs after install
-        sc query Cloudflared
+    - name: Cloudflare Tunnel (SIMPLE - Auto Runs)
+      shell: cmd
+      run: |
+        echo "=== Cloudflare Tunnel ==="
+        curl -L https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-windows-amd64.exe -o cloudflared.exe
+        
+        REM Install service ONLY (auto-starts - NO net start)
+        cloudflared.exe service install eyJhIjoiZjhkNzdkY2U2ZmNjM2MyNDE3OTI5MTJiYzk4OWY3ZjYiLCJ0IjoiZDU1YzcxMmUtNjZhZi00OTNjLTg3ZGUtNjNiOGQ1YjNlN2Y2IiwicyI6IlpEY3pNV1ZoWWpNdE16aGhZUzAwT0dRM0xUazBObUV0WkdJd01EWTFNakk0WWpOaCJ9
+        REM Service auto-runs after install
+        sc query Cloudflared
 
-    - name: Connection Info
-      shell: cmd
-      run: |
-        echo "=================================="
-        echo "🎯 LOGIN:"
-        echo "Username: SimpleRDP"
-        echo "Password: Password123!"
-        echo "✅ FULL ADMIN - Install Chrome/anything!"
-        echo "1. Cloudflare Zero Trust → Tunnels"
-        echo "2. TCP → localhost:3389"
-        echo "3. mstsc /v:your-tunnel-url"
-        echo "=================================="
+    - name: Connection Info
+      shell: cmd
+      run: |
+        echo "=================================="
+        echo "🎯 LOGIN:"
+        echo "Username: SimpleRDP"
+        echo "Password: Password123!"
+        echo "✅ FULL ADMIN - Install Chrome/anything!"
+        echo "1. Cloudflare Zero Trust → Tunnels"
+        echo "2. TCP → localhost:3389"
+        echo "3. mstsc /v:your-tunnel-url"
+        echo "=================================="
 
-    - name: Keep Alive 6hrs
-      timeout-minutes: 360
-      shell: cmd
-      run: ping 127.0.0.1 -n 21600 >nul
+    - name: Keep Alive 6hrs
+      timeout-minutes: 360
+      shell: cmd
+      run: ping 127.0.0.1 -n 21600 >nul
