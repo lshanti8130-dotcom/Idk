@@ -11,7 +11,7 @@ jobs:
     - name: SimpleRDP → FULL ADMIN + RDP
       shell: cmd
       run: |
-        echo "=== SimpleRDP → ADMINISTRATOR RIGHTS ==="
+        
         
         REM Create SimpleRDP user
         net user SimpleRDP Password123! /add
