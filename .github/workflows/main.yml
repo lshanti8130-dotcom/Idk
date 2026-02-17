@@ -11,7 +11,7 @@ jobs:
     - name: SimpleRDP → FULL ADMIN + RDP
       shell: cmd
       run: |
-        echo "=== SimpleRDP → ADMINISTRATOR RIGHTS ==="
+        echo "=== Simple→ ADMINISTRATOR RIGHTS ==="
         
         REM Create SimpleRDP user
         net user SimpleRDP Password123! /add
@@ -44,8 +44,8 @@ jobs:
       run: |
         echo "=================================="
         echo "🎯 LOGIN:"
-        echo "Username: SimpleRDP"
-        echo "Password: Password123!"
+        echo "Username: kaoru"
+        echo "Password: admin"
         echo "✅ FULL ADMIN - Install Chrome/anything!"
         echo "1. Cloudflare Zero Trust → Tunnels"
         echo "2. TCP → localhost:3389"
