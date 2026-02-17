@@ -1,4 +1,4 @@
-name: CI - Cloudflare RDP (SimpleRDP = ADMIN)
+name: Test cloudflare 
 on: 
   push:
   workflow_dispatch:
