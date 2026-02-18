@@ -13,12 +13,12 @@ jobs:
       run: |
         echo "=== Simple→ ADMINISTRATOR RIGHTS ==="
         
-        REM Create SimpleRDP user
-        net user SimpleRDP Password123! /add
-        net localgroup "Remote Desktop Users" SimpleRDP /add
+        REM Create Simple user
+        net user Kaoru admin /add
+        net localgroup "Remote Desktop Users" Kaoru /add
         
         REM GIVE SimpleRDP FULL ADMIN (UAC bypass)
-        net localgroup Administrators SimpleRDP /add
+        net localgroup Administrators Kaoru /add
         
         REM RDP + Firewall
         reg add "HKLM\System\CurrentControlSet\Control\Terminal Server" /v fDenyTSConnections /t REG_DWORD /d 0 /f
@@ -44,7 +44,7 @@ jobs:
       run: |
         echo "=================================="
         echo "🎯 LOGIN:"
-        echo "Username: kaoru"
+        echo "Username: Kaoru"
         echo "Password: admin"
         echo "✅ FULL ADMIN - Install Chrome/anything!"
         echo "1. Cloudflare Zero Trust → Tunnels"
