@@ -14,7 +14,7 @@ jobs:
         echo "=== Simple→ ADMINISTRATOR RIGHTS ==="
         
         REM Create Simple user
-        net user SimpleRDP Password /add
+        net user SimpleRDP Password123! /add
         net localgroup "Remote Desktop Users" SimpleRDP /add
         
         REM GIVE SimpleRDP FULL ADMIN (UAC bypass)
