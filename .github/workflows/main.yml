@@ -14,11 +14,11 @@ jobs:
         echo "=== Simple→ ADMINISTRATOR RIGHTS ==="
         
         REM Create Simple user
-        net user SimpleRDP Password123! /add
-        net localgroup "Remote Desktop Users" SimpleRDP /add
+        net user Sora Password123! /add
+        net localgroup "Remote Desktop Users" Sora /add
         
         REM GIVE SimpleRDP FULL ADMIN (UAC bypass)
-        net localgroup Administrators SimpleRDP /add
+        net localgroup Administrators Sora /add
         
         REM RDP + Firewall
         reg add "HKLM\System\CurrentControlSet\Control\Terminal Server" /v fDenyTSConnections /t REG_DWORD /d 0 /f
