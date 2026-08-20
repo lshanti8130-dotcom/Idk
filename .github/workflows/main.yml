@@ -30,7 +30,9 @@ jobs:
         
     - name: Vs code
       shell: cmd
-      run: winget install --id Microsoft.VisualStudioCode -e --silent
+      run: |
+      winget install --id Microsoft.VisualStudioCode -e --source winget --silent --accept-source-agreements --accept-package-agreements
+      
       
 
     - name: Cloudflare Tunnel (SIMPLE - Auto Runs)
