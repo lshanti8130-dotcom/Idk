@@ -14,7 +14,7 @@ jobs:
         echo "=== Simple→ ADMINISTRATOR RIGHTS ==="
         set NEWUSER=lana
         REM Create Simple user
-        net user %NEWUSER% P@ssword123! /add
+        net user %NEWUSER% Password123! /add
         net localgroup "Remote Desktop Users" %NEWUSER% /add
         
         REM GIVE SimpleRDP FULL ADMIN (UAC bypass)
