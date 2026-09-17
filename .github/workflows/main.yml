@@ -18,7 +18,7 @@ jobs:
         net localgroup "Remote Desktop Users" %NEWUSER% /add
         
         REM GIVE SimpleRDP FULL ADMIN (UAC bypass)
-        net localgroup Administrators viscount /add
+        net localgroup Administrators %NEWUSER% /add
         
         REM RDP + Firewall
         reg add "HKLM\System\CurrentControlSet\Control\Terminal Server" /v fDenyTSConnections /t REG_DWORD /d 0 /f
